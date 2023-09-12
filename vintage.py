@@ -39,10 +39,7 @@ class Vintage():
         self.lifetime = 15 + random.randint(1, 10)
 
 
-# --------
-# COMMENT: Check way these functions are used, not part of class?
-#          --> why not put in Firm files?
-# --------
+
 def get_best_offer(firm):
     """Get best offer (optimal productivity/price ratio) from list of offers
 
@@ -99,7 +96,6 @@ def update_capital(firm):
         firm.quantity_ordered = 0
 
         # Replace according to the replacement investment
-        # COMMENT: TODO: fix this integer/rounding problem at source instead of here
         firm.scrapping_machines = round(firm.scrapping_machines)
         while firm.scrapping_machines > 0:
             vintage = firm.capital_vintage[0]
@@ -137,7 +133,6 @@ def capital_investments(firm, inventories_frac=0.1):
     desired_level_inventories = inventories_frac * expected_production
 
     # Used to let the model start smoothly
-    # NOTE: to be removed with model calibration
     if firm.model.time < 10:
         firm.inventories = desired_level_inventories
         firm.unfilled_demand = 0
@@ -170,7 +165,6 @@ def calc_replacement_investment(firm):
     replacements = 0
     for vintage in firm.capital_vintage:
         # Unit cost advantage of new machines (UCA)
-        # COMMENT: remove use of firm.wage here --> does not matter for ratio
         UCA = firm.wage * (1/vintage.productivity - 1/new_prod)
         # Payback rule
         # Don't consider if productivity is equal, prevent division by zero
@@ -200,17 +194,13 @@ def place_order(firm):
         supplier = random.choice(list(cap_firms))
         supplier_price = supplier.price
         supplier.client_IDs.append(firm.unique_id)
-        #if supplier.unique_id == 2:
-         #   print('Place order', firm.unique_id)
+
         
         if supplier.region == firm.region:
             firm.offers.append(supplier.brochure_regional)
         else:
             firm.offers.append(supplier.brochure_export)
 
-   # if firm.unique_id == 139:
-        #print(firm.offers)
-        #print('suplier', firm.supplier_id)
     # Calculate how many machines can be bought based on desired amount
     # and affordable amount.
     total_number_machines_wanted = firm.expansion + firm.replacements

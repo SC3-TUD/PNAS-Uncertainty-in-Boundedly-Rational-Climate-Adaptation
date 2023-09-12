@@ -46,11 +46,7 @@ class ConsumptionGoodFirm(Agent):
         """
         super().__init__(model.next_id(), model)
 
-        # Please note that variables that change per region
-        # (i.e. market share) are in lists, where element 0 refers
-        # to the Coastal region and element 1 refers to the Inland region
-        # TODO: change to dicts, keep in mind that region 1 might be
-        #       added again later.
+
 
         # -- General consumption good firm attributes -- #
         self.type = "Cons"
@@ -58,9 +54,6 @@ class ConsumptionGoodFirm(Agent):
         self.lifecycle = lifecycle
         self.height = 5 if uniform(0, 1) > self.model.fraction_exposed else 0
 
-        # Only for datacollection at agent level: include other firm
-        # and household attributes
-        # COMMENT: TODO: see how this can be changed
         self.house_quarter_income_ratio = self.total_savings_pre_flood = None
         self.consumption = self.av_wage_house_value = self.elevated = None
         self.monetary_damage = self.total_damage = self.repair_exp = None
@@ -162,17 +155,11 @@ class ConsumptionGoodFirm(Agent):
         # --------
         self.competitiveness = [comp + 1e-7 for comp in
                                 gov.comp_normalized[self.unique_id]]
-        # self.capital_amount = sum(i.amount for i in self.capital_vintage)
-        # # OR:
-        # if len(self.employees_IDs) > 0 or self.lifecycle < 10:
-        #     self.capital_amount = sum(i.amount for i in self.capital_vintage)
+
 
         # Compute market share from competitiveness
         K_total = False
         a = 0.75
-        # Make the market more stable at the beginning, for a smooth start
-        #if self.model.time < 50:
-         #   a = 0.5
         if self.lifecycle == 0:
             K_total = gov.regional_capital_cons
 
@@ -257,54 +244,7 @@ class ConsumptionGoodFirm(Agent):
            TODO: write short description for all stages
         """
 
-        # There is a minimum period before considering migration
-        # --------
-        # COMMENT: 1. Migration now does not happen for ConGoodFirms?
-        #          2. Lifecycle stuff is same for firms --> move to
-        #             other function?
-        # --------
-        self.migration = False
-
-        # if self.lifecycle > 16:  # or self.new_born == True:
-        #     migr_prob = migration.migration_probability(self.regional_demand,
-        #                                                 self.past_sales,
-        #                                                 self.region)
-        #     if migr_prob > 0:
-        #         new_attr = migration.firm_migrate(self,
-        #                                           migr_prob,
-        #                                           self.model,
-        #                                           self.region,
-        #                                           self.unique_id,
-        #                                           self.employees_IDs,
-        #                                           self.net_worth,
-        #                                           self.wage)
-        #         self.region = new_attr[0]
-        #         self.employees_IDs = new_attr[1]
-        #         self.net_worth = new_attr[2]
-        #         self.wage = new_attr[3]
-
-        # # If there are no workers in the region, the firm migrates
-        # workers = self.model.governments[0].aggregate_employment[self.region]
-        # if self.lifecycle > 4 and workers == 0:
-        #     new_attr = migration.firm_migrate(self, 1,
-        #                                       self.model,
-        #                                       self.region,
-        #                                       self.unique_id,
-        #                                       self.employees_IDs,
-        #                                       self.net_worth,
-        #                                       self.wage)
-        #     self.region = new_attr[0]
-        #     self.employees_IDs = new_attr[1]
-        #     self.net_worth = new_attr[2]
-        #     self.wage = new_attr[3]
-
-        # Handle flood if it occurs
-        # --------
-        # COMMENT: why set to 0 here?
-        # --------
         self.damage_coeff = 0
-        #if self.unique_id == 61:
-         #   print(self.price, self.wage, self.productivity, self.employees_IDs)
         if self.model.is_flood_now:
             self.damage_coeff = cd.depth_to_damage(self.model.flood_depth,
                                                    self.height, self.type)
@@ -352,7 +292,6 @@ class ConsumptionGoodFirm(Agent):
         """Stage 3:
            TODO: write short description for all stages
         """
-        # if s.lifecycle > 0:
         households = self.model.schedule.agents_by_type["Household"]
         ld.update_employees_wage(self)
         self.price_demand_normalized()
@@ -368,7 +307,6 @@ class ConsumptionGoodFirm(Agent):
         """Stage 4:
            TODO: write short description for all stages
         """
-        # if self.lifecycle > 0:
         self.market_share_calculation()
 
     def stage5(self):
@@ -376,12 +314,10 @@ class ConsumptionGoodFirm(Agent):
            TODO: write short description for all stages
         """
         # TODO: comment
-        # if self.lifecycle > 0:
+
         self.market_share_normalized()
         self.market_share_trend()
 
-        # TODO: comment
-        # if len(self.employees_IDs) > 0 or self.lifecycle < 10:
         total_demand = self.model.governments[0].aggregate_cons
         new_attr = ac.individual_demands(len(self.employees_IDs),
                                          self.lifecycle,
@@ -396,15 +332,12 @@ class ConsumptionGoodFirm(Agent):
         self.production_made = new_attr[3]
         self.past_sales = new_attr[4]
 
-        # TODO: comment
         new_attr = ac.production_filled_unfilled(self.production_made,
                                                  self.inventories,
                                                  self.real_demand,
                                                  self.lifecycle)
         self.demand_filled, self.unfilled_demand, self.inventories = new_attr
-        # if self.damage_coeff > 0:
-        #     self.production_made = cd.destroy_fraction(self.production_made,
-        #                                                self.damage_coeff)
+
         self.accounting()
 
     def stage6(self):

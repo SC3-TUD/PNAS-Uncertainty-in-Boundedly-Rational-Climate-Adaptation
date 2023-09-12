@@ -189,195 +189,13 @@ class CRAB_Model(Model):
 
                 # NOTE: ***OUTPUTS FOR ANTONIA *** #
                 # -- Economic growth -- #
-                #"Real_GDP_cons_coastal": real_gdp_cons_reg_0,
-                #"Real_GDP_serv_coastal": real_gdp_serv_reg_0,
-                #"Av_income_pp" : income_pp,
                 "Unemployment rate coastal": regional_unemployment_rate_coastal,
+                "GDP total": gdp_total,
 
                 # -- Climate change adaptation (counting) -- #
                 "Total_UG_CCA_coastal_elev": total_CCA_coastal_elev,
                 "Total_UG_CCA_coastal_dry_proof": total_CCA_coastal_dry_proof,
-                "Total_UG_CCA_coastal_wet_proof": total_CCA_coastal_wet_proof,
-
-                # -- Population -- #
-                #"Population Consumption firms Coastal" : regional_population_cons_coastal,
-                #"Population Capital firms Coastal" : regional_population_cap_coastal,
-                #"Population Service firms Coastal" : regional_population_serv_coastal,
-                #"Households Coastal region" :regional_population_households_region_0,
-                #"Coastal average salary": coastal_average_salary,
-                #"Price_cons_coastal": price_average_cons_coastal,
-                #"Price_serv_coastal": price_average_serv_coastal,
-                "GDP total": gdp_total,
-                #"INVESTMENT coastal": investment_coastal,
-                 #"CONSUMPTION coastal": consumption_coastal,
-                #"Debt": debt,
-
-                # -- Debt (Revenues - cost) -- #
-                #"Tax_revenues_coastal": tax_revenues_coastal,
-                #"Unemployment_cost_coastal" :unemployment_cost_coastal,
-                
-                ### STOP FOR ANTONIA --###
-                #"Number of floods": n_floods,
-   
-                # -- Productivity -- #
-                #"Regional_average_productivity": productivity_firms_average,
-                #"Coastal productivity average": av_productivity_coastal,
-                #"Coastal productivity growth": gr_productivity_coastal,
-                #"Coastal_cons_av_prod": productivity_coastal_consumption_firms,
-                #"Coastal_cap_av_prod": productivity_coastal_capital_firms,
-                #"Coastal_serv_av_prod": productivity_coastal_service_firms,
-               # "Top_prod": top_prod,
-                # "Inland productivity average": av_productivity_inland,
-                # "Inland productivity growth": gr_productivity_inland,
-                # "Inland_cons_av_prod": productivity_inland_consumption_firms,
-                # "Inland_cap_av_prod": productivity_inland_capital_firms,
-                # "Inland_serv_av_prod": productivity_inland_service_firms,
-                # "Investment_units": investment_units,
-                # "Capital_firms_av_prod": productivity_capital_firms_average,
-                # "Capital_firms_av_prod_region_1": productivity_capital_firms_region_1_average,
-                # "Consumption_firms_av_prod": productivity_consumption_firms_average,
-
-                # -- Prices -- #
-                # "Price_average": price_average,
-                # "Capital_price_average": price_average_cap,
-                #Price_cap_coastal": price_average_cap_coastal,
-                # "Price_cons_internal": price_average_cons_internal,
-                # "Price_cap_internal": price_average_cap_internal,
-                # "Price_serv_internal": price_average_serv_internal,
-                # "Price total": price_total,
-
-                # -- GDPs -- #
-                # "GDP": gdp,
-                #"Real_GDP_cap_coastal": real_gdp_cap_reg_0,
-                #"INVENTORIES": inventories,
-                # "Feas prod": feas_prod,
-                # "GDP_cons": gdp_cons,
-                # "GDP_cap": gdp_cap,
-                # "Real_GDP_cap_internal": real_gdp_cap_reg_1,
-                # "Real_GDP_cons_internal": real_gdp_cons_reg_1,
-                # "Real_GDP_serv_internal": real_gdp_serv_reg_1,
-                # "Demand_exp_ratio": demand_export_rate,   # GDP/export ratio
-
-                # -- INVESTMENTS -- #
-               # "INVESTMENT": investment,
-                # "INVESTMENT inland": investment_inland,
-                #"INVESTMENT_total": investment_total,       # Returns list
-                #"Capital_Region_cons": regional_capital_cons,
-                #"Capital_Region_serv": regional_capital_serv,
-                # "RD_CCA_INVESTMENT": RD_CCA_investment,
-                # "orders_cons": quantity_ordered_cons,
-                # "orders_serv": quantity_ordered_serv,
-                # "orders_received": orders_received_cap,
-                # "Investment_units": investment_units,
-
-                # -- CONSUMPTION -- #
-                # "CONSUMPTION": consumption,
-                # "CONSUMPTION inland": consumption_inland,
-                #"CONSUMPTION total": consumption_total,
-                #"Aggregate_services": aggregate_serv,
-                #"Test_cons_coastal": test_consumption_coastal,
-                # "Test_cons_inland": test_consumption_inland,
-
-                # -- CCA -- #
-                # "Average_CCA_coeff": RD_coefficient_average,
-
-                # -- PROFITS/DEBT/RESOURCES -- #
-                # "Regional_average_profits_cons": regional_average_profits_cons,
-                # "Regional_average_profits_cap": regional_average_profits_cap,
-                # "Regional_profits_cons": regional_profits_cons,
-                # "Capital_price_average": price_average_cap,
-                #"Avg net worth Coastal": av_nw_coastal,
-                # "Avg net worth migration to Coastal": av_nw_migrant_to_coastal,
-                # "Avg net worth migration to Inland": av_nw_migrant_to_inland,
-                #"Tax_revenues_coastal": tax_revenues_coastal,
-                # "Tax_revenues_inland": tax_revenues_inlnad,
-                #"Unemployment_cost_coastal": unemployment_cost_coastal,
-                # "Sectoral_debt": sectoral_aggregate_debt,
-                # "Sectoral_liquid_assets": sectoral_aggregate_liquid_assets,
-
-                # -- UNEMPLOYEMENT-- #
-                # "Unemployment_cost_inland": unemployment_cost_inland,
-                # "Regional_average_NW": regional_average_nw,
-                # "Avg net worth Inland": av_nw_inland,
-                # "Aggregate_Employment": regional_aggregate_employment,
-                # "Aggregate_Unemployment": regional_aggregate_unemployment,
-                #"Unemployment_Regional": regional_unemployment_rate,
-                # "Regional_unemployment_subsidy": regional_unemployment_subsidy,
-                # "Aggregate_unemployment_rate": total_unemployment_rate,
-                #"LD_cap_0": ld_cap_0,           # LD = labour demand
-                #"LD_cons_0": ld_cons_0,
-                #"LD_serv_0": ld_serv_0,
-                # "Unemployment rate inland": regional_unemployment_rate_internal,
-                # "Unemployment total": regional_unemployment_rate_SA,
-                # "LD_cap_1": ld_cap_1,
-                # "LD_cons_1": ld_cons_1,
-                # "LD_serv_1": ld_serv_1,
-                # "labor check": consumption_labor_check,    # Check labour demand and employment
-
-                # -- SALARIES/COSTS -- #
-                # "Regional_Costs": regional_costs,
-                #"Average_Salary": regional_average_salary,
-                #"Coastal_cons_av_salary": coastal_average_cons_salary,
-                #"Coastal_cap_av_salary": coastal_average_cap_salary,
-                #"Coastal_serv_av_salary": coastal_average_serv_salary,
-                # "Inland average salary": inland_average_salary,
-                # "Inland_cons_av_salary": inland_average_cons_salary,
-                # "Inland_cap_av_salary": inland_average_cap_salary,
-                # "Inland_serv_av_salary": inland_average_serv_salary,
-                # "Salary differential": regional_diff_salary_cons,
-                # "Regional_fiscal_balance": regional_balance
-                #"Minimum_wage": regional_minimum_wage,
-              #  "Top_wage": top_wage,                # highest wage in each region
-
-                # -- MARKET DYNAMICS --#
-                # "Competitiveness_Regional": regional_average_competitiveness,
-              #  "Regional_sum_market_share": regional_aggregate_market_share,
-              #  "Regional_sum_market_share_serv": regional_aggregate_market_share_serv,
-                #"MS_exp": ms_exp,
-                # "Profitability_cons_coastal": profitability_cons_coastal,
-                # "Profitability_cons_coastal": profitability_cons_inland,
-                #"Number_entrants_cons_coastal": entrants_cons_coastal,
-                # "Profitability_serv_coastal": profitability_serv_coastal,
-                # "Profitability_serv_coastal": profitability_serv_inland,
-                #"Number_entrants_serv_coastal": entrants_serv_coastal,
-                #"Number_exit_cons_coastal": exit_cons_coastal,
-               # "Number_exit_serv_coastal": exit_serv_coastal,
-                # "Number_entrants_cons_inland": entrants_cons_inland,
-                # "Number_entrants_serv_inland": entrants_serv_inland,
-                # "Sales_firms": sales_firms
-                # "Market_share_normalized": market_share_normalized,
-
-                # -- POPULATION -- #
-                # "Population_Regional": regional_population_total,
-                # "Population_Regional_Households": regional_population_households,
-                # "Average size Coastal": av_size_coastal,
-                # "Average size Inland": av_size_inland,
-                # "Average size migration to Coastal": av_size_migrant_to_coastal,
-                # "Average size migration to Inland": av_size_migrant_to_inland,
-                # "Population Households Coastal": regional_population_households_region_0,
-                # "Population_Regional_Cons_Firms": regional_population_cons,
-                # "Population_Region_0_Cons_Firms": regional_population_cons_region_0,
-                # "Population Households Inland": regional_population_households_region_1,
-                # "Population_Region0_Households": regional_population_households_region_0,
-                # "Cons_regional_IDs": cons_ids_region,
-                # "Firms_regions": firm_region,
-
-                # -- ACCOUNTING -- #
-                #"Real_demand_cap": real_demand_cap,
-                #"Real_demand_cons": real_demand_cons,
-                #"Real_demand_services": real_demand_services,
-               # "Feasible_prod_services_coastal": feasible_prod_serv_coastal,
-                # "Feasible_prod_services_inland": feasible_prod_serv_inland,
-                # "Des_prod_services_coastal": deas_prod_serv_coastal,
-                # "Ordered_quantities": ordered_quantities,
-                # "Total_offers_cons_coastal": total_offers_cons_coastal,
-                # "Total_offers_serv_coastal": total_offers_serv_coastal,
-                # "Des_prod_services_inland": deas_prod_serv_inland,
-                # "Desired_services": desired_services,
-                # "Ordered_services": ordered_services,
-                # "Total_offers_cons_inland": total_offers_cons_inland,
-                # "Total_offers_serv_inland": total_offers_serv_inland
-                },
+                "Total_UG_CCA_coastal_wet_proof": total_CCA_coastal_wet_proof          },
 
             # Collect data on agent level (per step, per agent)
             agent_reporters={
@@ -388,47 +206,7 @@ class CRAB_Model(Model):
                 "House_value" : 'av_wage_house_value',  
                 "At_risk": "at_risk", 
                 "Wage": "wage", 
-                "Education": "edu",    # Liquid resources per firm
-               # "House_wage_ratio": "house_quarter_income_ratio", # lambda x: x.house_wage_ratio if x.type == "Household" else None,
-                #"Total_damage": "total_damage",  # lambda x: x.total_damage if x.type == "Household" else None,
-                #"Total_savings": "total_savings_pre_flood",  # lambda x: x.total_savings if x.type == "Household" else None,
-                #"Recovery_time": "recovery_time",
-                #"Repair_exp": "repair_exp",  # lambda x: x.repair_exp if x.type == "Household" else None,
-               # "Cons": "consumption",  # lambda x: x.consumption if x.type == "Household" else None ,
-               # "Employer_id": lambda x:x.employer_ID if x.type == 'Household' else None, 
-                # "Edu": lambda x: x.edu if x.type == "Household" else None ,
-                #"Flooded":"flooded",  # lambda x: x.flooded if x.type == "Household" else None ,
-             
-                #"Worry" : "worry",
-        
-                # "Risk_perc": "risk_perc",
-                #"SE_wet": "SE_wet",
-                #"RE_wet": "RE_wet",
-                # "Price": "price",                                                         #- Price
-                # "Prod": "productivity",
-         # lambda x: x.monetary_damage if x.type == "Household" else None,
-               # "Elevated" : 'elevated',
-         
-                # "Size": lambda x: len(x.employees_IDs) if x.type == "Service" else None,
-                # "Ms": lambda x: x.market_share if x.type == "Service" else None,
-                # "Regional demand": lambda x: x.regional_demand_serv if x.type == "Service" else None,
-                # "Past demand": lambda x: x.past_sales if (x.type == "Cons") else None,
-                # "Past demand": lambda x: x.past_demand if (x.type == "Cap") else None,
-                # "Region": lambda x: x.region if x.type == "Service" else None,
-                # "Feasible prod": lambda x: x.feasible_production if x.type == "Service" else None, #and x.feasible_production == 0) else None,
-                # "Deas prod": lambda x: x.desired_production if x.type == "Service" else None,
-                # "Migration prob": lambda x: x.migration_pr if x.type == "Service" else None,
-                # "Number out": lambda x: x.number_out if x.type == "Service" else None, # and sum(x.regional_demand_serv) == 0) else None,
-
-                # "Region": lambda x: x.region,
-                # "Lifecycle": lambda x: x.lifecycle if x.type == "Cap" else None,
-                # "Real_demand_cap": lambda x: x.real_demand_cap if x.type == "Cap" else None,
-                # "Competitiveness": lambda x: x.competitiveness if x.type == "Cons" else None,
-                # "Feasible prod": lambda x: x.feasible_production if x.type == "Cons" else None,
-                # "Number out": lambda x: x.number_out if x.type == "Cons" else None,
-                # "Migration prob": lambda x: x.migration_pr if x.type == "Cons" else None,
-                # "Regional demand": lambda x: x.regional_demand if x.type == "Cons" else None,
-                # "Markup": lambda x: x.markup if x.type == "Cons" else None
+                "Education": "edu"
                 }
         )
         self.running = True
@@ -464,7 +242,6 @@ class CRAB_Model(Model):
             pop_change = int(0.5 * avg_income_change *
                              len(self.schedule.agents_by_type["Household"]))
 
-          #  print("pop change is " ,pop_change)
 
             # If population change is positive: add households
             if pop_change > 0 and gov.unemployment_rates[0] < 0.15:
@@ -578,9 +355,6 @@ class CRAB_Model(Model):
                 # Initialize competitiveness as average competitiveness
                 comp = gov.avg_norm_comp[firm.type]
                 # Initialize capital
-                # COMMENT: TODO: change this to government function,
-                #                --> implies using current top_prod,
-                #                instead of previous, check if possible
                 capital = {"Cons": gov.regional_capital_cons[2] *
                                    self.capital_output_ratio,
                            "Service": gov.regional_capital_serv[2] *
@@ -609,7 +383,6 @@ class CRAB_Model(Model):
         for firm_out in firms_to_remove:
             # Update bailout cost
             bailout += firm_out.net_worth
-            #print('removing', firm_out.unique_id)
             # Remove firm from model and schedule
             self.schedule.remove(firm_out)
 

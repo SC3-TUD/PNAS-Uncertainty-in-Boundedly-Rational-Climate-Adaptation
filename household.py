@@ -12,11 +12,9 @@ in the scheduling determined by the StagedActivationByType class.
 
 import random
 import numpy as np
-# import pymc3 as pm
 
 import labor_dynamics as ld
 import climate_dynamics as cd
-# import migration
 
 from mesa import Agent
 from enum import unique
@@ -56,7 +54,6 @@ class Household(Agent):
         self.adaptation_model = self.model.cca_model
 
         # Only for datacollection at agent level: include firm attributes
-        # COMMENT: TODO: see how this can be changed
         self.employees_IDs = self.capital_vintage = self.price = None
         self.productivity = self.market_share = self.bankrupt = None
         self.migration_pr = None
@@ -68,9 +65,8 @@ class Household(Agent):
         else:
             self.height = 0
             self.at_risk = True
-        # --------
-        # COMMENT: does this initialization below mean that there is always
-        #          risk and therefore adaptation? Cannot turn CCA off now?
+
+
         depth = list(self.model.flood_schedule.items())[0][1]
         self.damage_coeff = cd.depth_to_damage(depth, self.height, self.type)
         self.house_quarter_income_ratio = attributes["HH_sell_norm"]
@@ -341,10 +337,7 @@ class Household(Agent):
     def compute_PMT(self, damage_red, perc_damage, perc_p, cost, perc_cost,
                     RE, SE, social_net, ug_1, ug_1_beta, ug_2, ug_2_beta,
                     pmt_params, measure, social_int=True):
-        """TODO: write description.
-           TODO: reference to article (Noll, 2022, 2021?) on PMT parameters,
-                 and make reference (or explain here) to definition of these
-                 parameters
+        """
 
         Args:
             damage_red          :
@@ -396,8 +389,7 @@ class Household(Agent):
                 social_inter_eff = 0
 
             # --------
-            # COMMENT: TODO: vectorize this computation (weights * ...)
-            # --------
+
             y_hat = (intercept
                      + (beta_p * perc_p)
                      + (beta_d * perc_damage)
@@ -418,7 +410,6 @@ class Household(Agent):
 
             # Get adaptation probability
             y_hat = round(min(1, inv_logit(y_hat)), 2)
-            #print(y_hat)
             if y_hat > 0:
                 if bernoulli.rvs(y_hat/4) == 1:
                     self.net_worth -= cost

@@ -12,30 +12,6 @@ import time
 
 import numpy as np
 
-# # --------
-# # COMMENT: not used
-# # --------
-# def calc_prod_cost(wage, prod):
-#     """Calculate unit cost of production.
-
-#     Args:
-#         wage    : Firm wage
-#         prod    : Firm labor productivity
-#     """
-#     return wage/prod
-
-
-# # --------
-# # COMMENT: not used
-# # --------
-# def calc_price(cost, markup=0.05):
-#     """Calculate unit price.
-
-#     Args:
-#         cost        : Unit cost of production
-#         markup      : Difference between cost and selling price
-#     """
-#     return round((1 + markup) * cost, 6)
 
 
 def calc_competitiveness(price, region, trade_cost,
@@ -81,9 +57,6 @@ def compete_and_sell(firm, v=0.05):
     else:
         # Calculate markup from market share history,
         # bounded between 0.05 and 0.4
-        # TODO: determine how to avoid division by zero error in
-        #       firm.market_share_history[-2] (Value rounded before adding)
-        #       Add noise? Set to constant number?
         firm.markup = max(0.01,
                           min(0.4,
                               round(firm.markup *
@@ -120,34 +93,5 @@ def calc_market_share(firm, comp_avg, K, K_total, chi=0.5):
                                       comp_avg), 8)
 
 
-# --------
-# COMMENT: not used
-# --------
-# def calc_global_market_share(MS):
-#     """Calculate firm global market share.
-
-#     Args:
-#         MS      : Market share
-#     """
-#     return (MS[0] + MS[1]) / 2
 
 
-# --------
-# COMMENT: not used
-# --------
-# def remove_myself(self):
-#     """Remove firm from market. """
-#     self.model.kill_agents.append(self)
-
-#     # Fire employees
-#     households = self.model.schedule.agents_by_type["Household"]
-#     for employee_id in self.employees_IDs:
-#         employee = households[employee_id]
-#         employee.employer_ID = None
-#     self.employees_IDs = []
-
-#     # Remove offers
-#     for offer in self.offers:
-#         supplier_agent = self.model.schedule.agents_by_type["Cap"][offer[2]]
-#         supplier_agent.client_IDs.remove(self.unique_id)
-#     self.offers = []

@@ -12,16 +12,13 @@ used in the scheduler described by the StagedActivationByType class.
 
 import random
 import numpy as np
-# import statistics
-# import math
+
 
 import labor_dynamics as ld
 import goods_market as gm
 import climate_dynamics as cd
 import accounting as ac
 import vintage as vin
-# import research_and_development as rd
-# import migration
 
 from scipy.stats import beta
 from random import choice, seed, uniform
@@ -50,8 +47,7 @@ class ServiceFirm(Agent):
         # Please note that variables that change per region
         # (i.e. market share) are in lists, where element 0 refers
         # to the Coastal region and element 1 refers to the Inland region
-        # TODO: change to dicts, keep in mind that region 1 might be
-        #       added again later.
+      
 
         # -- General service firm attributes -- #
         self.type = "Service"
@@ -61,7 +57,6 @@ class ServiceFirm(Agent):
 
         # Only for datacollection at agent level: include other firm
         # and household attributes
-        # COMMENT: TODO: see how this can be changed
         self.house_quarter_income_ratio = self.total_savings_pre_flood = None
         self.consumption = None
         self.monetary_damage = self.total_damage = self.repair_exp = None
@@ -145,8 +140,6 @@ class ServiceFirm(Agent):
         else:
             self.labor_demand = 0
             self.productivity[1] = self.productivity[0]
-        # # If we want to add the coast of research once we add the CCA
-        # self.labor_demand += math.floor(self.CCA_RD_budget / self.wage)
 
         # Hire or fire employees based on labor demand
         ld.hire_and_fire(self)
@@ -157,9 +150,7 @@ class ServiceFirm(Agent):
         """
         # Retrieve competitiveness from central calculations of government
         gov = self.model.governments[0]
-        # --------
-        # COMMENT: why noise addition?
-        # --------
+
         self.competitiveness = [comp + 1e-7 for comp in
                                 gov.serv_comp_normalized[self.unique_id]]
 
@@ -251,15 +242,6 @@ class ServiceFirm(Agent):
            TODO: write short description for all stages
         """
 
-        # --------
-        # COMMENT: why set to 0 here?
-        # ANSWER: because otherwise the step after the flood they will
-        #         keep damage_coeff > 0 (what can we do here is to do
-        #         that at central/model level at the end of
-        #         each step with a flood)
-        # COMMENT ANSWER (Liz): Yes, that would in my opinion make more sense.
-        #                       TODO: change this.
-        # --------
         self.damage_coeff = 0
         if self.model.is_flood_now:
             self.damage_coeff = cd.depth_to_damage(self.model.flood_depth,
@@ -291,7 +273,6 @@ class ServiceFirm(Agent):
            TODO: write short description for all stages
         """
         # # Not for newborn firms
-        # if self.lifecycle > 0:
         gov = self.model.governments[0]
         ld.set_firm_wage(self, gov.min_wage[self.region],
                          gov.regional_av_prod_serv)
@@ -310,7 +291,6 @@ class ServiceFirm(Agent):
         """Stage 3:
            TODO: write short description for all stages
         """
-        # if s.lifecycle > 0:
         households = self.model.schedule.agents_by_type["Household"]
         ld.update_employees_wage(self)
         self.price_demand_normalized()
@@ -327,20 +307,16 @@ class ServiceFirm(Agent):
         """Stage 4:
            TODO: write short description for all stages
         """
-        # if self.lifecycle > 0:
         self.market_share_calculation()
 
     def stage5(self):
         """Stage 5:
            TODO: write short description for all stages
         """
-        # TODO: comment
-        # if self.lifecycle > 0:
+
         self.market_share_normalized()
         self.market_share_trend()
 
-        # TODO: comment
-        # if len(self.employees_IDs) > 0 or self.lifecycle < 10:
         total_demand = self.model.governments[0].aggregate_serv
         new_attr = ac.individual_demands(len(self.employees_IDs),
                                          self.lifecycle,
@@ -355,7 +331,6 @@ class ServiceFirm(Agent):
         self.production_made = new_attr[3]
         self.past_sales = new_attr[4]
 
-        # TODO: comment
         new_attr = ac.production_filled_unfilled(self.production_made,
                                                  self.inventories,
                                                  self.real_demand,
@@ -364,9 +339,7 @@ class ServiceFirm(Agent):
         self.accounting()
 
     def stage6(self):
-        """Stage 6:
-           TODO: write short description for all stages
-        """
+
         if self.lifecycle > 1:
             ac.create_subsidiaries(self)
 

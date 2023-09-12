@@ -117,55 +117,10 @@ class CapitalGoodFirm(Agent):
             self.RD_budget = self.IN + self.IM
 
         # -- INNOVATION -- #
-        # OLD VERSION --> compute here
-        # # Bernoulli draw to determine success of innovation
-        # if bernoulli.rvs(1 - exp(-Z * self.IN)) == 1:
-        #     # New production productivity (B) from innovation
-
-        #     a_0 = (1 + x_low + beta.rvs(a, b) * (x_up - x_low))
-        #     in_productivity[1] = self.productivity[0] * a_0
-        #     # New machine productivity (A) from innovation
-        #     a_1 = (1 + x_low + beta.rvs(a, b) * (x_up - x_low))
-        #     in_productivity[0] = self.productivity[1] * a_1
 
         # NEW VERSION --> use RD function (version 20/4/2022)
         in_productivity = rd.innovate(self.IN, self.productivity)
 
-        # -- IMITATION -- #
-        # OLD VERSION --> compute here
-        # Z = 0.3
-        # e = 5        # Geographical distance
-        # # Bernoulli draw to determine success of imitation
-        # if bernoulli.rvs(1 - exp(-Z * self.IM)) == 1:
-        #     # Store imitation probabilities and the corresponding firms
-        #     IM_prob = []
-        #     # Compute technological distances for all other capital firms
-        #     for firm in firms:
-        #         distance = (sqrt(pow(self.productivity[0] -
-        #                              firm.productivity[0], 2) +
-        #                          pow(self.productivity[0] -
-        #                              firm.productivity[0], 2)))
-        #         if distance == 0:
-        #             IM_prob.append(0)
-        #         # elif firm.region != self.region:
-        #         #     # Add geographical distance if firm is in other region
-        #         #     # COMMENT: when readding second region: shouldn't this
-        #         #     #          be (1/ (e*distance))?
-        #         #     IM_prob.append(1/e * distance)
-        #         else:
-        #             IM_prob.append(1 / distance)
-
-        #     if sum(IM_prob) > 0:
-        #         # Pick firm to imitate based on normalized
-        #         # cumulative imitation probabilities
-        #         IM_prob = np.cumsum(IM_prob)/np.cumsum(IM_prob)[-1]
-        #         j = bisect.bisect_right(IM_prob, uniform(0, 1))
-        #         firm = firms[j]
-        #         im_productivity = firm.productivity
-        # else:
-        #     im_productivity = [0, 0]
-
-        # NEW VERSION --> use RD function (version 20/4/2022)
         im_productivity = rd.imitate(self)
 
         # Recovering lab productivity after disaster
@@ -189,10 +144,6 @@ class CapitalGoodFirm(Agent):
     def calculateProductionCost(self):
         """Calculates the unit cost of production. """
 
-        # # This is for CCA so it is off at the moment
-        # if self.flooded:
-        #     damages = min(self.model.S/self.CCA_resilience[0],
-        #                   self.model.S)
 
         if self.damage_coeff > 0:
             # Store pre-flood productivity
@@ -257,9 +208,6 @@ class CapitalGoodFirm(Agent):
         minimum_wage = gov.min_wage[self.region]
         
         # Get consumption firm top wages in region
-        # COMMENT: TODO: change this to not directly use datacollector
-        #                (make model dynamics independent of output collection)
-       # top_wages = self.model.datacollector.model_vars["Top_wage"]
         top_wage = gov.top_wage #top_wages[int(self.model.schedule.time)][self.region]
         
         # Set wage to max of min wage and top paying wage
@@ -267,8 +215,7 @@ class CapitalGoodFirm(Agent):
 
     def hire_and_fire_cap(self):
         """Open vacancies and fire employees based on demand. """
-        # --------
-        # COMMENT: move first part to separate function? --> handles demand
+
         # --------
         self.past_demand = self.real_demand_cap
         self.real_demand_cap = [0, 0]
@@ -288,10 +235,6 @@ class CapitalGoodFirm(Agent):
                              (self.RD_budget / self.wage))
 
         # Hire or fire employees based on labor demand
-       # if self.unique_id == 2:
-            
-           # print('labor demand is', self.labor_demand, self.employees_IDs)
-           # print('orders', self.regional_orders)
         ld.hire_and_fire(self)
 
     def accounting_orders(self):
@@ -307,10 +250,7 @@ class CapitalGoodFirm(Agent):
         if self.damage_coeff > 0:
              self.production_made = cd.destroy_fraction(self.production_made,
                                                         self.damage_coeff)
-        # if self.model.schedule.time == self.model.shock_time:
-        #     damages = min(self.model.S / self.CCA_resilience[1],
-        #                   self.model.S)
-        #     self.production_made = (1 - damages) * self.production_made
+
 
         # Cancel orders if necessary
         self.orders_filled = min(total_orders, self.production_made)

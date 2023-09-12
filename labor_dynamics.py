@@ -40,19 +40,13 @@ def labor_search(household, open_vacancies):
         potential_employers = sample(open_vacancies,
                                      ceil(len(open_vacancies)/3))
  
-       # if household.unique_id == 251:
-        #    print('open vacancies', [open_vacancies[i].unique_id for i in range(len(open_vacancies))])
-         #   print('Potential employers', [potential_employers[i].unique_id for i in range(len(potential_employers))])
         # Choose firm with highest wage
         wage = 0
         for firm in potential_employers:
             if firm.wage > wage:
-                #if household.unique_id == 251:
-                 #   print('H 251 opportunity', firm.unique_id, firm.wage)
                 employer = firm
                 wage = employer.wage
-        #if employer.unique_id == 61:
-         #  print( 'I got the 102', household.unique_id, employer.wage)
+
         employer.employees_IDs.append(household.unique_id)
 
         # Close vacancies if firm has enough employees
@@ -79,8 +73,6 @@ def labor_demand(firm):
 
     # Find most productive machines to satisfy feasible production
     # Loop through machine stock backwards
-    # COMMENT: stock was not always sorted by productivity,
-    #          TODO: should be changed??
     Q = 0
     machines_used = []
     for vintage in firm.capital_vintage[::-1]:
@@ -143,16 +135,6 @@ def set_firm_wage(firm, minimum_wage, regional_av_prod):
         regional_av_prod    : Average production within region
     """
 
-    # --------
-    # COMMENT: TODO: remove unused arguments
-    # --------
-
-    # # Delta price not used for now (not influential in wage determination)
-    # con_price_avg = data["Consumption_price_average"]
-    # current_average_price = con_price_avg[int(self.model.schedule.time)][firm.region]
-    # prev_average_price = con_price_avg[int(self.model.schedule.time)-1][firm.region]
-    # delta_price_average = ((current_average_price - prev_average_price) /
-    #                        previous_average_price)
 
     # Keep change in productivity
     prev_prod = firm.productivity[0]
@@ -161,29 +143,12 @@ def set_firm_wage(firm, minimum_wage, regional_av_prod):
     delta_my_productivity = max(-0.25, min(0.25, (current_prod - prev_prod) /
                                                  prev_prod))
 
-    # # Delta unemployment, not used for now
-    # if (previous_unemployment_rate_my_region or
-    #     current_unemployment_rate_my_region) < 0.01:
-    #     delta_unemployment = 0
-    # else:
-    # delta_unemployment = max(-0.025,
-    #                          min(0.025,
-    #                              (current_unemployment_rate_my_region -
-    #                               previous_unemployment_rate_my_region) /
-    #                              max(previous_unemployment_rate_my_region,
-    #                                  current_unemployment_rate_my_region)))
 
     delta_unemployment = 0
-    # unemploy_vars = data["Unemployment_Regional"]
-    # delta_unemployment = unemploy_vars[int(self.model.schedule.time)][firm.region + 2]
-
-    # Regional productivity change, calculated by government
     delta_productivity_average = regional_av_prod[firm.region + 2]
 
-    # Bound wage by minimum wage (determined by government)
-    # TODO: check correctness of function, 1 + b not between brackets?
-    #       and why (-0.0)???
-    b = 0.1
+
+    b = 0.2
     firm.wage = max(minimum_wage,
                     round(firm.wage * (1 + b * delta_my_productivity +
                           (1 - b) * delta_productivity_average +

@@ -190,9 +190,8 @@ class Government(Agent):
     # ------------------------------------------------------------------------
     #                         NORMALIZATION FUNCTIONS
     # ------------------------------------------------------------------------
-    # COMMENT: check if possible to combine all these functions
-    #          into single function?
-    # --------
+
+
     def norm_price_unf_demand(self, firms):
         """Normalize prices and unfilled demand.
 
@@ -323,13 +322,9 @@ class Government(Agent):
         self.salaries_cap = self.compute_avg_wage(cap_firms)
         self.salaries_cons = self.compute_avg_wage(cons_firms)
         self.salaries_serv = self.compute_avg_wage(serv_firms)
-        # salary_difference = self.variable_difference(av_sal0, av_sal1, True)
-        # salary_difference0, salary_difference1 = salary_difference
+ 
         self.average_wages = [salaries[0], salaries[1], 0 , 0]
-        # av_sal0 = (salaries[0] / (self.av_price_cons[0] * 0.35 +
-        #            self.av_price_serv[0] * 0.65)
-        # av_sal1 = (self.pre_average_wages[0] / (self.av_price_cons[0] * 0.35 +
-        #            self.av_price_serv[0] * 0.65)
+
 
         # -- EMPLOYMENT -- #
         RAE0 = salaries[2]
@@ -370,35 +365,20 @@ class Government(Agent):
                                    0, 0, unemployment_rate_total]
         self.unemployment_cost = [ARU0 * self.unempl_subsidy[0],
                                   ARU1 * self.unempl_subsidy[1]]
-        # unemployment_diff = self.variable_difference(unemployment_rate_0,
-        #                                              unemployment_rate_1,
-        #                                              False)
-        # unemployment_diff0, unemployment_diff1 = unemployment_diff
+
 
         # -- CONSUMPTION -- #
         C0 = round(test_0)
-        #print('C0 is ', C0)
-        # C0 = ((self.average_wages[0] * RAE0) +
-        #       (ARU0 * self.unempl_subsidy[0]))
+
         C1 = round(test_1)
-        # C1 = ((self.average_wages[1] * RAE1) +
-        #       (ARU1 * self.unempl_subsidy[1]))
-        # test_0 = test_0 - C0
-        # test_1 = test_1 - C1
+
 
         entry_exit_resources = (self.bailout_cost - self.new_firms_resources)
         if C0 < entry_exit_resources:  # or C1 < entry_exit_resources_i:
             print("More resources than consumption")
-        C0 += entry_exit_resources
-        # C1 += entry_exit_resources_i
 
-        # # Handle flood
-        # if self.model.S > 0:
-        #     if self.flood== True:
-        #         shock = self.model.S
-        #         # shock = np.random.beta(self.model.beta_a,
-        #         #                        self.model.beta_b)
-        #         C0 = (1 - shock) * C0
+
+        
 
         fraction_cons_in_goods = 0.3
         G0 = fraction_cons_in_goods * C0 
@@ -406,22 +386,19 @@ class Government(Agent):
         
         S0 = C0 - G0
         S1 = C1 - G1
-        #G0 += self.repair_exp
+        
 
         # -- EXPORT -- # 
         if self.model.time < 20:
             self.export_demand = 0.2 * C0 
         else:
             self.export_demand = self.export_demand * (1 + self.fraction_exp)
-        # self.export_demand = (C0 s + C1)  * self.fraction_exp
+       
         export_demand_cons = self.export_demand * fraction_cons_in_goods
         export_demand_serv = self.export_demand - export_demand_cons
-        # self.export_demand_list.append(self.export_demand)
+
         data = self.model.datacollector.model_vars
-        #region_market_share = data["Regional_sum_market_share"]
-        # exp_share = region_market_share[int(self.model.schedule.time)]
-        # C0 += round(export_demand  * exp_share[3], 3)
-        # C1 += round(export_demand *  exp_share[4], 3)
+       
 
         self.aggregate_cons = [round(G0, 3), round(G1, 3),
                                G0+G1, export_demand_cons]
@@ -435,19 +412,12 @@ class Government(Agent):
                           self.regional_pop_hous[0], 3)
 
 
-        #print( "G" ,G0, 'S0', S0, "AV price cons", self.av_price_cons[0],
-         #        "av price serv",  self.av_price_serv[0], self.income_pp  )
-        # unem_ratio = (self.unemployment_rates[0] /
-        #               (self.prev_unemployment_rates[1] + 1e-5))
-
-
         if self.previous_income_pp > 0:
             self.income_pp_change = ((self.income_pp -
                                       self.previous_income_pp) /
                                      self.previous_income_pp)
         else: 
             self.income_pp_change = 0
-        #print('Income pp change is', self.income_pp)
 
     def compute_net_sales(self, firms):
         """Calculates net sales for ConsumptionGood firms.
@@ -815,10 +785,7 @@ class Government(Agent):
             prefer_foreign_vars     :
         """
         # --------
-        # COMMENT: Only returns nonzero value if prefer_foreign_vars is True?
-        #          --> Change to only use it in this case?
-        # TODO: check efficiency of this function
-        # --------
+
 
         var_diff0 = var_diff1 = 0
         if prefer_foreign_vars:
@@ -826,20 +793,7 @@ class Government(Agent):
                 var_diff0 = (var0 - var1) / (var0 + 0.001)
             elif var0 > var1:
                 var_diff1 = (var1 - var0) / (var1 + 0.001)
-        # else:
-        #     if var1 < var0:
-        #         var_diff0 = (var1 - var0) / (var1 + 0.001)
-        #     elif var0 < var1:
-        #         var_diff1 = (var0 - var1) / (var1 + 0.001)
 
-        # var_diff = abs(var0 - var1)
-        # if var_diff > 0.1:
-        #     var_diff_perc = var_diff / (var0 + var1) / 2
-        # elif var_diff > 0.01:
-        #     var_diff0 = round((var0 - var1) / max(var0, var1), 2)
-        #     var_diff1 = round((var1 - var0) / max(var0, var1), 2)
-        # else:
-        #     var_diff_perc = 0
         return (round(max(-0.25, var_diff0), 2),
                 round(max(-0.25, var_diff1), 2))
 
@@ -856,14 +810,6 @@ class Government(Agent):
             self.set_minimum_wage()
             self.fiscal_balance = (self.tax_revenues[0] -
                                    self.unemployment_cost[0])
-
-            # marginal = 0
-            # if self.model.time > 70:
-            #     marginal = 0.01
-            # if self.fiscal_balance > 0:
-            #     self.tax_rate = (1 - marginal) * self.tax_rate
-            # elif self.fiscal_balance < 0:
-            #     self.tax_rate = (1 + marginal) * self.tax_rate
 
             self.tax_revenues = [0, 0]
             self.unemployment_cost = [0, 0]
@@ -923,8 +869,7 @@ class Government(Agent):
         if self.region == 0:
             cons_firms = self.model.schedule.agents_by_type["Cons"].values()
             self.compute_net_sales(cons_firms)
-            
-            # self.entry_exit_cons()
+        
             self.get_best_cap()
             
             cap_firms = self.model.schedule.agents_by_type["Cap"].values()

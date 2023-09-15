@@ -1,12 +1,23 @@
 # PNAS_SPECIAL_ISSUE_CRAB
 
-This repository stores the code and the analysis scripts of the evolutionary economic agent-based model names CRAB (Coastal Regional Agent-Based model). CRAB was developed to study how damages and adaptation benefits across different actors ( diverse firsma dn hosueholds) evolve over time in a regional economy exposed to climate-induced hazards, as these agents decide where to reside and whether or not to invest in private adaptation. This researchis possible thanks to the funding from the European Research Council (ERC) under the European Union’s Horizon 2020 Research and Innovation Program, project 'SCALAR: Scaling up behavior and autonomous adaptation for macro models of climate change damage assessment'; grant agreement number 758014.
+This repository stores the code and the analysis scripts of the evolutionary economic agent-based model named CRAB (Coastal Regional Agent-Based model). CRAB was developed to study how damages and adaptation benefits across different actors ( diverse firms and hosueholds) evolve over time in a regional economy exposed to climate-induced hazards, as these agents decide where to reside and whether or not to invest in private adaptation. This research is possible thanks to the funding from the European Research Council (ERC) under the European Union’s Horizon 2020 Research and Innovation Program, project 'SCALAR: Scaling up behavior and autonomous adaptation for macro models of climate change damage assessment'; grant agreement number 758014.
 
 ![image](https://github.com/SC3-TUD/PNAS-Uncertainty-in-Boundedly-Rational-Climate-Adaptation/assets/83168418/9f49f519-0c9c-40c7-afb3-6a8a662fec87)
 
 
+**Author contributions:**
+
+*Model design*: Prof. dr. Tatiana filatova, Alessandro Taberna
+*Code implementation*: Liz Verbeek, Alessandro Taberna
+*Sensitivity analysis*: Prof. dr. Antonia Hadjimichael
+
+*Model design CRAB v1.1*: Prof. dr. Tatiana Filatova, prof. dr. Andrea Roventini, prof. dr. Francesco Lamperti, Alessandro Taberna 
 
 Here we provide the code files for the CRAB model v1.2  ( Original paper describing v1.1 of the model is available at this link: [https://www.sciencedirect.com/science/article/pii/S0921800922002506]
+
+
+
+
 
 ### Run the model - single processor
 

@@ -5,7 +5,7 @@ This repository stores the code and the analysis scripts of the evolutionary eco
 ![image](https://github.com/SC3-TUD/PNAS-Uncertainty-in-Boundedly-Rational-Climate-Adaptation/assets/83168418/9f49f519-0c9c-40c7-afb3-6a8a662fec87)
 
 
-**Author contributions:**
+## **Author contributions:**
 
 *Model design*: Prof. dr. Tatiana filatova, Alessandro Taberna
 *Code implementation*: Liz Verbeek, Alessandro Taberna

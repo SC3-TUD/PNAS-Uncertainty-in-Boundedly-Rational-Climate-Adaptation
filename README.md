@@ -40,23 +40,27 @@ Aggregate outputs are saved into ```macro_variables.csv``` while output at indiv
 
 
 
-### In a nutshell the files are structured as follow:
+### In a nutshell the files are structured as follows:
 In general the remaining files can be classified into three categories:
-   ###### 1) Agents class files: the files which contain the agent classes and what do they do duruing a step. 
+   ###### 1) Agents class files: the files which contain the agent classes and what do they do during a step. 
 
-   * ```model.py```: it is the CRAB model class. Agents are spwaned from here and most of the parameters are also assigned here as well.
+   * ```model.py```: it is the CRAB model class. Agents are spawned from here and most of the parameters are also assigned here as well.
    * ```capital_good_firm.py , consumption_good_firm.py , service_good_firm.py , households.py```: contain all the actions undertaken by firms of different sectors and         households during a single step.
    * ```government.py```: actions performed by the government agent. There is one government and sometimes it is used to track individual agents. variables
    ###### 2) Files that contains functions used by agents in a specific context:
    * ```goods_market.py```: contains all the functions that the agents use to buy and sell goods.
    * ```labor_dynamics.py```: contains all the functions that the agents use to regulate the jobs market such as hiring/firing process.
-   * ```accounting.py```: contains all the functions that the firms agents use to track their resources ( costs, revenus and profits...).
+   * ```accounting.py```: contains all the functions that the firms agents use to track their resources ( costs, revenues and profits...).
    * ```vintage.py```: contains all the functions used in the capital market. 
-   * ```research_and_development.py```: fucntions used by the capital-good firms for technological learning and innovation.
+   * ```research_and_development.py```: functions used by the capital-good firms for technological learning and innovation.
    * ```climate_dynamics.py```: function to model the flood as well as the individual damage to each agent.
    * ```data_collection.py```: contains all the function used to track variables and stored them as output. The variables stored can be selected/added in the  ```model_reporters ``` and ```agents_reporter``` in the file ```model.py```.
 
-
-
+### To perform the sensitivity analysis:
+You need access to parallel computing capabilities to perform Steps 1 and 2. If you don't have access to parallel computing, skip to Step 3, which uses summary outputs from the prior steps. 
+1) Use ```SA_runs_submission.sh``` to perform the parallel runs using ```single_run_for_SA.py``` and ```param_values.npy``` (the Sobol sample). You need to perform this for each behavioral combination and point to the respective directories to store outputs (e.g., ```data_dir = './EU_het_2_outputs/```)
+2) Use ```time_varying_analysis.sh``` to extract time-varying means across the 100 seeds to be used in the sensitivity analysis. This script can run python files ```time_varying_means_adaptation_fraction.py```, ```time_varying_means_damages.py```, and ```time_varying_means_damages_hom.py``` and will produce the summary outputs listed under ```SA_summary_output_figures```
+3) To calculate sensitivity indices and re-produce the figures in the paper, use ```time_varying_SA_adaptation_fraction.py``` for all relevant outputs under the ```SA_summary_output_figures``` directory
+4) Notebook ```time_varying_indices.ipynb``` uses the calculated indices to produce the figures for the paper
  
 

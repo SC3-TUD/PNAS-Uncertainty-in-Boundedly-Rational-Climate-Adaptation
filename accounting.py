@@ -45,7 +45,7 @@ def individual_demands(size, lifecycle, past_sales, market_shares,
                        round(total_demand[3] * market_shares[2], 3)]
     # Calculate monetary and real demand from this regional demand
     monetary_demand = round(sum(regional_demand), 3)
-    real_demand = round(monetary_demand / price, 3)
+    real_demand = round(monetary_demand / productivity, 3)
 
     # Actual production made is constrained by productivity
     production_made = size * productivity

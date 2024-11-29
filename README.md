@@ -7,13 +7,13 @@ This repository stores the code and the analysis scripts of the evolutionary eco
 
 ## Author contributions
 
-*Model design*:  Alessandro Taberna, Prof. dr. Tatiana Filatova,
+*Model design*:  Alessandro Taberna, Tatiana Filatova,
 
 *Code implementation*: Alessandro Taberna, Liz Verbeek
 
 *Sensitivity analysis*: Dr. Antonia Hadjimichael
 
-*Model design CRAB v1.1*: Alessandro Taberna, prof. dr. Tatiana Filatova, prof. dr. Andrea Roventini, Dr. Francesco Lamperti, 
+*Model design CRAB v1.1*: Alessandro Taberna, Tatiana Filatova, Andrea Roventini, Francesco Lamperti, 
 
 Here we provide the code files for the CRAB model v1.2  ( Original paper describing v1.1 of the model is available at this link: [https://www.sciencedirect.com/science/article/pii/S0921800922002506]
 
